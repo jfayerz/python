@@ -24,7 +24,9 @@ def whileLoop():
 
 print(whileLoop())
 
-def recurseSum():
+def recurseSum():   ## This one is not working yet
+                    ## Still trying to understand
+                    ## Recursion
     i = len(list1) - 1
     if i < 1:
         return i
@@ -32,4 +34,4 @@ def recurseSum():
     i = i - 1
     return x
 
-recurseSum()
+#recurseSum()
