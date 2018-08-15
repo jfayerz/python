@@ -24,14 +24,19 @@ def whileLoop():
 
 print(whileLoop())
 
-def recurseSum():   ## This one is not working yet
-                    ## Still trying to understand
-                    ## Recursion
-    i = len(list1) - 1
-    if i < 1:
-        return i
-    x = list1[i] + list1[i - 1]
-    i = i - 1
-    return x
+def recurseSum(n):   
+    if len(n)==0:
+        return 0
+    else:
+        return n[0] + recurseSum(n[1:])
+    # Slicing (1:) creates a new list but doesn't change the 
+    # original list.  It creates a list with the items from 
+    # the index, in this case 1:, forward and continues on
+    # so the original list is 1,2,3,4,5, the slice list
+    # index is 1:. so the slice list becomes 2,3,4,5
+    # then, because this is a recursive function it keeps 
+    # calling that over and over again until the len of 'n' 
+    # (the slice list) becomes 0, at which point the "if"
+    # condition triggers
 
-#recurseSum()
+print recurseSum(list1)
