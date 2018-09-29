@@ -19,10 +19,12 @@ for podcast in info:
 			episodeNum = d.entries[0].itunes_episode
 			seasonNum = d.entries[0].itunes_season
 			fileName = title + ".mp3"
-			urllib.request.urlretrieve (url,fileName)
+			urllib.request.urlretrieve(url,fileName)
 
 			try:
 				audio = ID3(fileName)
+				audio.delete()
+				audio = ID3()
 			except ID3NoHeaderError:
 				print("Adding ID3 header")
 				audio = ID3()
@@ -33,17 +35,19 @@ for podcast in info:
 			audio.add(TPE1(encoding=3,text=podcast['artist'])) #add artist
 			audio.add(TPE2(encoding=3,text=podcast['album_artist'])) #add album artist
 			audio.add(TALB(encoding=3,text=podcast['album'])) #add album
-			audio.save("/home/mcshoggoth/Downloads/" + fileName)
+			audio.save(fileName) #this save function only saves the ID3 tags, it does not resave the mp3. So, if you don't have it pointed at the actual file location it will just save a text file full of metadata that will be useless
 		elif podcast['host'] == 'art19':
 			url = d.entries[0].links[0].href
 			title = d.entries[0].title.rstrip()
 			episodeNum = d.entries[0].itunes_episode
 			seasonNum = d.entries[0].itunes_season
 			fileName = title + ".mp3"
-			urllib.request.urlretrieve (url,fileName)
+			urllib.request.urlretrieve(url,fileName)
 
 			try:
 				audio = ID3(fileName)
+				audio.delete()
+				audio = ID3()
 			except ID3NoHeaderError:
 				print("Adding ID3 header")
 				audio = ID3()
@@ -54,7 +58,7 @@ for podcast in info:
 			audio.add(TPE1(encoding=3,text=podcast['artist'])) #add artist
 			audio.add(TPE2(encoding=3,text=podcast['album_artist'])) #add album artist
 			audio.add(TALB(encoding=3,text=podcast['album'])) #add album
-			audio.save("/home/mcshoggoth/Downloads/" + fileName)
+			audio.save(fileName)
 			"""
 			audio = eyed3.load(fileName)
 			audio.tag.title = title
@@ -71,10 +75,12 @@ for podcast in info:
 			episodeNum = d.entries[0].itunes_episode
 			seasonNum = d.entries[0].itunes_season
 			fileName = title + ".mp3"
-			urllib.request.urlretrieve (url,fileName)
+			urllib.request.urlretrieve(url,fileName)
 
 			try:
 				audio = ID3(fileName)
+				audio.delete()
+				audio = ID3()
 			except ID3NoHeaderError:
 				print("Adding ID3 header")
 				audio = ID3()
@@ -85,27 +91,19 @@ for podcast in info:
 			audio.add(TPE1(encoding=3,text=podcast['artist'])) #add artist
 			audio.add(TPE2(encoding=3,text=podcast['album_artist'])) #add album artist
 			audio.add(TALB(encoding=3,text=podcast['album'])) #add album
-			audio.save("/home/mcshoggoth/Downloads/" + fileName)
-			"""
-			audio = eyed3.load(fileName)
-			audio.tag.title = title   # none of this eyed3 stuff works if the mp3 file has tag "none"
-			audio.tag.track_num = episodeNum
-			audio.tag.disc_num = seasonNum
-			audio.tag.artist = podcast['artist']
-			audio.tag.album_artist = podcast['album_artist']
-			audio.tag.album = podcast['album']
-			audio.tag.save(version=(2,4,0))
-			"""
+			audio.save(fileName)
 	elif podcast['episode_number'] == 'yes' and podcast['season_number'] == 'no':
 		if podcast['host'] == 'libsyn':
 			url = d.entries[0].links[1].href.partition("?")[0].rstrip()
 			title = d.entries[0].title.rstrip()
 			episodeNum = d.entries[0].itunes_episode
 			fileName = title + ".mp3"
-			urllib.request.urlretrieve (url,fileName)
+			urllib.request.urlretrieve(url,fileName)
 
 			try:
 				audio = ID3(fileName)
+				audio.delete()
+				audio = ID3()
 			except ID3NoHeaderError:
 				print("Adding ID3 header")
 				audio = ID3()
@@ -115,16 +113,18 @@ for podcast in info:
 			audio.add(TPE1(encoding=3,text=podcast['artist'])) #add artist
 			audio.add(TPE2(encoding=3,text=podcast['album_artist'])) #add album artist
 			audio.add(TALB(encoding=3,text=podcast['album'])) #add album
-			audio.save("/home/mcshoggoth/Downloads/" + fileName)
+			audio.save(fileName)
 		elif podcast['host'] == 'art19':
 			url = d.entries[0].links[0].href
 			title = d.entries[0].title.rstrip()
 			episodeNum = d.entries[0].itunes_episode
 			fileName = title + ".mp3"
-			urllib.request.urlretrieve (url,fileName)
+			urllib.request.urlretrieve(url,fileName)
 
 			try:
 				audio = ID3(fileName)
+				audio.delete()
+				audio = ID3()
 			except ID3NoHeaderError:
 				print("Adding ID3 header")
 				audio = ID3()
@@ -134,16 +134,18 @@ for podcast in info:
 			audio.add(TPE1(encoding=3,text=podcast['artist'])) #add artist
 			audio.add(TPE2(encoding=3,text=podcast['album_artist'])) #add album artist
 			audio.add(TALB(encoding=3,text=podcast['album'])) #add album
-			audio.save("/home/mcshoggoth/Downloads/" + fileName)
+			audio.save(fileName)
 		else:
 			url = d.entries[0].links[1].href
 			title = d.entries[0].title.rstrip()
 			episodeNum = d.entries[0].itunes_episode
 			fileName = title + ".mp3"
-			urllib.request.urlretrieve (url,fileName)
+			urllib.request.urlretrieve(url,fileName)
 
 			try:
 				audio = ID3(fileName)
+				audio.delete()
+				audio = ID3()
 			except ID3NoHeaderError:
 				print("Adding ID3 header")
 				audio = ID3()
@@ -153,17 +155,19 @@ for podcast in info:
 			audio.add(TPE1(encoding=3,text=podcast['artist'])) #add artist
 			audio.add(TPE2(encoding=3,text=podcast['album_artist'])) #add album artist
 			audio.add(TALB(encoding=3,text=podcast['album'])) #add album
-			audio.save("/home/mcshoggoth/Downloads/" + fileName)
+			audio.save(fileName)
 	elif podcast['episode_number'] == 'no':
 		if podcast['host'] == 'libsyn':
 			url = d.entries[0].links[1].href.partition("?")[0].rstrip()
 			title = d.entries[0].title.rstrip()
 			fileName = title + ".mp3"
 			episodeNum = d.entries[0].title.partition(" ")[0].rstrip()
-			urllib.request.urlretrieve (url,fileName)
+			urllib.request.urlretrieve(url,fileName)
 
 			try:
 				audio = ID3(fileName)
+				audio.delete()
+				audio = ID3()
 			except ID3NoHeaderError:
 				print("Adding ID3 header")
 				audio = ID3()
@@ -173,15 +177,17 @@ for podcast in info:
 			audio.add(TPE1(encoding=3,text=podcast['artist'])) #add artist
 			audio.add(TPE2(encoding=3,text=podcast['album_artist'])) #add album artist
 			audio.add(TALB(encoding=3,text=podcast['album'])) #add album
-			audio.save("/home/mcshoggoth/Downloads/" + fileName)
+			audio.save(fileName)
 		elif podcast['host'] == 'art19':
 			url = d.entries[0].links[0].href
 			title = d.entries[0].title.rstrip()
 			fileName = title + ".mp3"
-			urllib.request.urlretrieve (url,fileName)
+			urllib.request.urlretrieve(url,fileName)
 
 			try:
 				audio = ID3(fileName)
+				audio.delete()
+				audio = ID3()
 			except ID3NoHeaderError:
 				print("Adding ID3 header")
 				audio = ID3()
@@ -190,15 +196,17 @@ for podcast in info:
 			audio.add(TPE1(encoding=3,text=podcast['artist'])) #add artist
 			audio.add(TPE2(encoding=3,text=podcast['album_artist'])) #add album artist
 			audio.add(TALB(encoding=3,text=podcast['album'])) #add album
-			audio.save("/home/mcshoggoth/Downloads/" + fileName)
+			audio.save(fileName)
 		else:
 			url = d.entries[0].links[1].href
 			title = d.entries[0].title.rstrip()
 			fileName = title + ".mp3"
-			urllib.request.urlretrieve (url,fileName)
+			urllib.request.urlretrieve(url,fileName)
 
 			try:
 				audio = ID3(fileName)
+				audio.delete()
+				audio = ID3()
 			except ID3NoHeaderError:
 				print("Adding ID3 header")
 				audio = ID3()
@@ -207,4 +215,4 @@ for podcast in info:
 			audio.add(TPE1(encoding=3,text=podcast['artist'])) #add artist
 			audio.add(TPE2(encoding=3,text=podcast['album_artist'])) #add album artist
 			audio.add(TALB(encoding=3,text=podcast['album'])) #add album
-			audio.save("/home/mcshoggoth/Downloads/" + fileName)
+			audio.save(fileName)
